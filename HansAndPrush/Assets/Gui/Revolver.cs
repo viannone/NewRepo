@@ -63,7 +63,7 @@ public class Revolver : AttackTransmitter {
 		}
 		while ((int) currentAngle != newAngle) {
 			timer += Time.deltaTime;
-			currentAngle = Mathf.SmoothStep (oldAngle, newAngle, timer/speed);
+			currentAngle = Mathf.LerpAngle (oldAngle, newAngle, timer/speed);
 			transform.eulerAngles = new Vector3(0, 0, currentAngle);
 			if ((int)currentAngle == -360) {
 				currentAngle = 0;
