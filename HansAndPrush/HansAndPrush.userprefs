@@ -1,0 +1,35 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/HumanInput.cs">
+    <Files>
+      <File FileName="Assets/Gui/SelectScreen.cs" Line="25" Column="3" />
+      <File FileName="Assets/Sequencer.cs" Line="5" Column="1" />
+      <File FileName="Assets/Seq.cs" Line="5" Column="20" />
+      <File FileName="Assets/Characters/Prush.cs" Line="1" Column="1" />
+      <File FileName="Assets/Attacks/HitScan.cs" Line="1" Column="1" />
+      <File FileName="Assets/Cameras/SceneCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets/Gui/Revolver.cs" Line="40" Column="74" />
+      <File FileName="Assets/GameData.cs" Line="14" Column="15" />
+      <File FileName="Assets/Attacks/AttackPrefab.cs" Line="1" Column="1" />
+      <File FileName="Assets/Attacks/Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Attacks/Attack.cs" Line="11" Column="27" />
+      <File FileName="Assets/Attacks/AttackTransmitter.cs" Line="1" Column="1" />
+      <File FileName="Assets/Characters/SimpleTargetFollowDeleteMe.cs" Line="1" Column="1" />
+      <File FileName="Assets/Characters/DeathScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Characters/Brain.cs" Line="1" Column="1" />
+      <File FileName="Assets/HumanInput.cs" Line="32" Column="3" />
+      <File FileName="Assets/Characters/CentralNervousSystem.cs" Line="1" Column="1" />
+      <File FileName="Assets/Characters/RigidbodyInterface.cs" Line="1" Column="1" />
+      <File FileName="Assets/Characters/DamageInput.cs" Line="1" Column="1" />
+      <File FileName="Assets/Editor/FrameDrawer.cs" Line="1" Column="1" />
+      <File FileName="Assets/GroundCollider.cs" Line="1" Column="1" />
+      <File FileName="Assets/PrushPlatform.cs" Line="1" Column="1" />
+      <File FileName="Assets/Editor/SeqEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Editor/SequencerEditor.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
