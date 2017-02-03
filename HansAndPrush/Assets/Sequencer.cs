@@ -12,6 +12,8 @@ public class Sequencer : MonoBehaviour {
 	public int initialSequence;
 	public int run;
 	public int walk;
+	public int jump;
+	public int idle;
 
 	public Seq[] allSequences;
 	public string[] folderToIndexMap;
@@ -76,6 +78,8 @@ public class Sequencer : MonoBehaviour {
 		//find transition frames to s
 		if (currentSequence.pivotTypes [sequence].pivots.Length == 0) {
 			Debug.LogWarning ("No Transitions To " + folderToIndexMap [sequence]);
+			currentSequence.Stop ();
+			allSequences [sequence].Play ();
 		} else {
 			foreach (Pivot p in currentSequence.pivotTypes[sequence].pivots) {
 				currentSequence.MakeFrameTerminal (p);
@@ -95,12 +99,13 @@ public class Sequencer : MonoBehaviour {
 			} else {
 				r.flipX = false;
 			}
-
-			if ((oldX < 0 && xVel > 0)) {
-				Debug.Log (walk);
-				Cue (walk);
-			} else if ((oldX > 0 && xVel < 0)) {
+				
+			if (currentSequence != allSequences [idle] && cns.grounded && xVel == 0) {
+				Cue (idle);
+			} else if (currentSequence != allSequences [run] && xVel != 0 && cns.grounded) {
 				Cue (run);
+			} else if (currentSequence != allSequences [jump] && !cns.grounded) {
+				Cue (jump);
 			}
 				oldX = xVel;
 			if (currentSequence.speedSensitive) {
