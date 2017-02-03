@@ -47,12 +47,18 @@ public class Prush : MonoBehaviour {
 			List<Transform> allEnemies = GameData.enemies;
 			List<Transform> tempEnemies = new List<Transform>();
 			if (allEnemies != null) {
-				foreach (Transform enemy in allEnemies) {
-					float dist = enemy.position.x - hans.position.x;
-					if (dist * dist < maxHorizontalRange * maxHorizontalRange) {
-						tempEnemies.Add (enemy);
+				for (int i = 0; i < allEnemies.Count; i++) {
+					if (allEnemies [i] != null) {
+						Transform enemy = allEnemies [i];
+						float dist = enemy.position.x - hans.position.x;
+						if (dist * dist < maxHorizontalRange * maxHorizontalRange) {
+							tempEnemies.Add (enemy);
+						}
+						yield return null;
+					} else {
+						allEnemies.Remove(allEnemies[i]);
+						tempEnemies.Remove (allEnemies [i]);
 					}
-					yield return null;
 				}
 				enemiesInRange = tempEnemies;
 			} else {
@@ -68,8 +74,10 @@ public class Prush : MonoBehaviour {
 			} else {
 				Transform temp = enemiesInRange [0];
 				for (int i = 1; i < enemiesInRange.Count; i++) {
-					if (enemiesInRange != null && (hans.position - temp.position).sqrMagnitude < (enemiesInRange [i].position - hans.position).sqrMagnitude) {
+					if (enemiesInRange != null && enemiesInRange [i] != null && (hans.position - temp.position).sqrMagnitude < (enemiesInRange [i].position - hans.position).sqrMagnitude) {
 						temp = enemiesInRange [i];
+					} else {
+						enemiesInRange.Remove (enemiesInRange [i]);
 					}
 					yield return null;
 				}
