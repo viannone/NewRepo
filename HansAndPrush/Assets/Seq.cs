@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 [RequireComponent (typeof(Sequencer))]
 
 public class Seq : MonoBehaviour {
+	public bool autoPlay = false;
 	public string folder;
 	public string CHARACTER_ALLCAPS;
 	public bool speedSensitive = false;
@@ -25,6 +26,11 @@ public class Seq : MonoBehaviour {
 			Debug.LogError ("Forgot To Compile Transitions in: " + folder + ", Dumbass");
 		}
 		sr = GetComponent<SpriteRenderer> ();
+	}
+	public void Start(){
+		if (autoPlay) {
+			Play ();
+		}
 	}
 	public void Play(){
 		StartCoroutine (IterateFrames ());
