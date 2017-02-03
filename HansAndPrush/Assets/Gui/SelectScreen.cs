@@ -6,7 +6,6 @@ using System;
 public class SelectScreen : MonoBehaviour {
 	ColorButton[] allColorButtons;
 	int revolverSize;
-	int nextSpot = 0;
 	public bool isActive = true;
 	void Awake(){
 		allColorButtons = transform.GetComponentsInChildren<ColorButton> ();
