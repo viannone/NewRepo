@@ -4,6 +4,7 @@ using System.Collections;
 public class DeathScript : MonoBehaviour {
 
 	public void Die(){
-		//Destroy (gameObject);
+		GameData.enemies.Remove (this.transform);
+		Destroy (gameObject);
 	}
 }
