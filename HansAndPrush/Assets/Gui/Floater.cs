@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class Floater : MonoBehaviour {
+	public int distance = 5;
 	public float defaultTime = .5f;
 	public Transform textPrefab;
 	public Queue<Transform> displayQueue;
@@ -40,7 +41,7 @@ public class Floater : MonoBehaviour {
 		routineRunning = true;
 		while (displayQueue.Count > 0) {
 			StartCoroutine (FloatAway (displayQueue.Dequeue()));
-			yield return new WaitForSeconds (defaultTime / 4);
+			yield return new WaitForSeconds (defaultTime / 2);
 		}
 		routineRunning = false;
 	}
@@ -51,7 +52,7 @@ public class Floater : MonoBehaviour {
 		while (timer < defaultTime) {
 			timer += Time.deltaTime;
 			float fract = timer / defaultTime;
-			t.position = new Vector2(t.position.x, Mathf.Lerp (transform.position.y, transform.position.y + 5, fract));
+			t.position = new Vector2(t.position.x, Mathf.Lerp (transform.position.y, transform.position.y + distance, fract));
 			tempColor.a = Mathf.Lerp (1.0f, 0.0f, fract);
 			te.color = tempColor;
 			yield return null;

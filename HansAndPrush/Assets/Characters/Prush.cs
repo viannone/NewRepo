@@ -14,6 +14,9 @@ public class Prush : MonoBehaviour {
 	public float xOffset;
 	public float yOffset;
 	public float timeToPlatform;
+	public float targetTime;
+	public float maxDistanceDelta;
+	private float currentVel;
  	CentralNervousSystem hansCNS;
 	HumanInput hansBrain;
 	public PrushPlatform prushPlatform;
@@ -77,6 +80,7 @@ public class Prush : MonoBehaviour {
 	}
 	public IEnumerator Prioritize(){
 		while (true) {
+			Transform oldTarget = target;
 			if (currentEnemy != null) {
 				target = currentEnemy;
 			} else {
@@ -88,18 +92,7 @@ public class Prush : MonoBehaviour {
 	public IEnumerator Pursue(){
 		while (true) {
 			if (target != null) {
-				float timer = 0.0f;
-				Vector2 prushPos = (Vector2) transform.position;
-				while (timer < secondsToDestination) {
-					Vector2 goalPos = new Vector2 (target.position.x + xOffset, target.position.y + yOffset);
-					if (target == null) {
-						break;
-					} else {
-						timer += Time.deltaTime;
-						transform.position = Vector2.Lerp (prushPos, goalPos, timer / secondsToDestination);
-						yield return null;
-					}
-				}
+				transform.position = Vector2.MoveTowards ((Vector2)transform.position, (Vector2) target.position, maxDistanceDelta);
 			}
 			yield return null;
 		}
