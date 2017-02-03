@@ -131,10 +131,10 @@ public class Prush : MonoBehaviour {
 			yield return null;
 		}
 		prushPlatform.gameObject.SetActive (false);
-		MaintainHomeostasis ();
 		while (!hansCNS.grounded) { 
 			yield return null;
 		}
+		MaintainHomeostasis ();
 		hansBrain.platformPrimed = true;
 	}
 

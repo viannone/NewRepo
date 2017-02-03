@@ -42,7 +42,9 @@ public class CentralNervousSystem : MonoBehaviour {
 		health = h;
 	}
 	public void ChangeHealth(int i, Color c){
-		PostMessage (i.ToString(), c);
+		if (billboard != null) {
+			PostMessage (Mathf.Abs(i).ToString (), c);
+		}
 		ChangeHealth (i);
 	}
 

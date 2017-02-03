@@ -15,6 +15,9 @@ public class SimpleTargetFollowDeleteMe : Brain {
 		at = GetComponent<AttackTransmitter> ();
 		//because we're an enemy, add to enemy list
 		GameData.enemies.Add(transform);
+		if (target == null) {
+			target = HumanInput.humanInput.transform;
+		}
 		if (target != null) {
 			StartCoroutine ("ChaseTarget");
 			StartCoroutine ("ShootTarget");
