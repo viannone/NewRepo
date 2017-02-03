@@ -46,7 +46,7 @@ public class DamageInput : MonoBehaviour {
 					break;
 				case Effect.CLEANSE:
 					incomingAttack.sender.damageInput.Cleanse ();
-					incomingAttack.sender.PostMessage ("Cleansed!", Color.white);
+					//incomingAttack.sender.PostMessage ("Cleansed!", Color.white);
 					break;
 				case Effect.HEAL:
 					incomingAttack.sender.ChangeHealth ((int)e.effectValue, Color.green);
@@ -60,7 +60,7 @@ public class DamageInput : MonoBehaviour {
 	}
 	public IEnumerator VAMPIRIC(CentralNervousSystem sender, float effectValue, float effectTime){
 		float count = 0;
-		cns.PostMessage ("Vampiric Effect!", Color.magenta);
+		//cns.PostMessage ("Vampiric Effect!", Color.magenta);
 		while (count <= (int)effectTime) {
 			yield return new WaitForSeconds (1.0f);
 			cns.ChangeHealth ((int) -effectValue, Color.magenta);
@@ -75,7 +75,7 @@ public class DamageInput : MonoBehaviour {
 
 	public IEnumerator DOT(float effectValue, float effectTime){
 		int count = 0;
-		cns.PostMessage ("BURNED!", Color.red);
+	//	cns.PostMessage ("BURNED!", Color.red);
 		while (count <= (int) effectTime) {
 			yield return new WaitForSeconds(1.0f);
 			cns.ChangeHealth ((int) -effectValue, Color.red);
@@ -84,28 +84,28 @@ public class DamageInput : MonoBehaviour {
 	}
 	public IEnumerator ARMOR(float effectValue, float effectTime){//this one affects the SENDER of the attack
 		float amount = (effectValue * amplifier) - amplifier;
-		cns.PostMessage ("Damage Amplified By: %" + (int) (amount * 100), Color.black);
+		//cns.PostMessage ("Damage Amplified By: %" + (int) (amount * 100), Color.black);
 		amplifier += amount;
 		yield return new WaitForSeconds(effectTime);
 		amplifier -= amount;
-		cns.PostMessage ("Damage Now: %" + (int) (amplifier * 100) , Color.black);
+		//cns.PostMessage ("Damage Now: %" + (int) (amplifier * 100) , Color.black);
 	}
 	public IEnumerator SLOW(float effectValue, float effectTime){
 		float oldSpeed = cns.GetMaxSpeed ();
 		float amount = effectValue * oldSpeed;
 		cns.SetMaxSpeed (oldSpeed - amount);
-		cns.PostMessage ("SLOWED", Color.blue);
+		//cns.PostMessage ("SLOWED", Color.blue);
 		yield return new WaitForSeconds (effectTime);
 		cns.SetMaxSpeed (cns.GetMaxSpeed() + amount);
-		cns.PostMessage ("Speed Restored", Color.blue);
+		//cns.PostMessage ("Speed Restored", Color.blue);
 	}
 	public IEnumerator AMPLIFY(float effectValue, float effectTime){
 		float amount = (effectValue * amplifier) - amplifier;
-		cns.PostMessage ("Damage Amplified By: %" + (int) (amount * 100), Color.yellow);
+		//cns.PostMessage ("Damage Amplified By: %" + (int) (amount * 100), Color.yellow);
 		amplifier += amount;
 		yield return new WaitForSeconds(effectTime);
 		amplifier -= amount;
-		cns.PostMessage ("Damage Now: %" + (int) (amplifier * 100) , Color.yellow);
+		//cns.PostMessage ("Damage Now: %" + (int) (amplifier * 100) , Color.yellow);
 	}
 
 }
