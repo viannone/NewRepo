@@ -68,7 +68,7 @@ public class Sequencer : MonoBehaviour {
 
 	public void SetCurrentSequence(Seq s){
 		StopCoroutine ("ManageAnimations");
-		Debug.Log ("Now Playing: " + s.folder);
+		//Debug.Log ("Now Playing: " + s.folder);
 		currentSequence = s;
 		StartCoroutine ("ManageAnimations");
 	}
@@ -77,7 +77,7 @@ public class Sequencer : MonoBehaviour {
 		currentSequence.nextAnimation = allSequences[sequence];
 		//find transition frames to s
 		if (currentSequence.pivotTypes [sequence].pivots.Length == 0) {
-			Debug.LogWarning ("No Transitions To " + folderToIndexMap [sequence]);
+			//Debug.LogWarning ("No Transitions To " + folderToIndexMap [sequence]);
 			currentSequence.Stop ();
 			allSequences [sequence].Play ();
 		} else {

@@ -18,8 +18,11 @@ public class Prush : MonoBehaviour {
 	public float maxDistanceDelta;
 	public int maxPlatforms;
 	public int jumpsThusFar;
+	public float delay;
 	private float currentVel;
  	CentralNervousSystem hansCNS;
+	Collider2D hansGroundCollider;
+	Collider2D prushPlatformCollider;
 	HumanInput hansBrain;
 	public PrushPlatform prushPlatform;
 
@@ -29,6 +32,8 @@ public class Prush : MonoBehaviour {
 		hansCNS = hans.GetComponent<CentralNervousSystem> ();
 		hansBrain = hans.GetComponent<HumanInput> ();
 		prushPlatform.gameObject.SetActive (false);
+		hansGroundCollider = hansCNS.groundCollider.GetComponent<Collider2D> ();
+		prushPlatformCollider = prushPlatform.GetComponent<Collider2D> ();
 	}
 
 	public void Start(){
@@ -116,17 +121,16 @@ public class Prush : MonoBehaviour {
 	}
 		
 	public void CancelPlatform(){
+		jumpsThusFar = 0;
 		StopCoroutine ("PlatformCycle");
 		prushPlatform.gameObject.SetActive (false);
 		MaintainHomeostasis ();
 	}
 
 	public void Platform(){
+		jumpsThusFar++;
 		StopAllCoroutines ();
 		StartCoroutine(GetUnderHans ());
-		if (jumpsThusFar == 0) {
-			StartCoroutine (PlatformResetCheck());
-		}
 	}
 
 
@@ -140,19 +144,18 @@ public class Prush : MonoBehaviour {
 				yield return null;
 			}
 			prushPlatform.gameObject.SetActive (true);
-
-			while (!prushPlatform.hansHasJumpedOff) {
-				yield return null;
-			}
-			prushPlatform.gameObject.SetActive (false);
+			StartCoroutine (PlatformResetCheck());
 	}
+
+
 	public IEnumerator PlatformResetCheck(){
-		while (!hansCNS.grounded) { 
+		Debug.Log ("Checking");
+		while ((!hansCNS.grounded) || hansGroundCollider.IsTouching(prushPlatformCollider)) { 
 			yield return null;
+			Debug.Log (hansGroundCollider.IsTouching (prushPlatformCollider));
 		}
-		StopAllCoroutines ();
-		MaintainHomeostasis ();
-		jumpsThusFar = 0;
+		//yield return new WaitForSeconds (delay);
+		CancelPlatform();
 	}
 
 
