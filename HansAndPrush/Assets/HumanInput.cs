@@ -22,8 +22,6 @@ public class HumanInput : Brain {
 				if (!cns.grounded && Prush.prush.jumpsThusFar < Prush.prush.maxPlatforms) {
 					Prush.prush.Platform ();
 					yield return new WaitForSeconds (.3f);
-				} else if (cns.grounded && Prush.prush.jumpsThusFar != 0) {
-					Prush.prush.CancelPlatform ();
 				}
 			}
 		yield return null;

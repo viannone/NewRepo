@@ -152,7 +152,7 @@ public class Prush : MonoBehaviour {
 		Debug.Log ("Checking");
 		while ((!hansCNS.grounded) || hansGroundCollider.IsTouching(prushPlatformCollider)) { 
 			yield return null;
-			Debug.Log (hansGroundCollider.IsTouching (prushPlatformCollider));
+		//	Debug.Log (hansGroundCollider.IsTouching (prushPlatformCollider));
 		}
 		//yield return new WaitForSeconds (delay);
 		CancelPlatform();
