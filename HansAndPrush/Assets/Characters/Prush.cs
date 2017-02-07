@@ -16,6 +16,8 @@ public class Prush : MonoBehaviour {
 	public float timeToPlatform;
 	public float targetTime;
 	public float maxDistanceDelta;
+	public int maxPlatforms;
+	public int jumpsThusFar;
 	private float currentVel;
  	CentralNervousSystem hansCNS;
 	HumanInput hansBrain;
@@ -46,18 +48,10 @@ public class Prush : MonoBehaviour {
 		while (true) {
 			List<Transform> allEnemies = GameData.enemies;
 			List<Transform> tempEnemies = new List<Transform>();
-			if (allEnemies != null) {
+			if (allEnemies.Count != 0) {
 				for (int i = 0; i < allEnemies.Count; i++) {
-					if (allEnemies [i] != null) {
-						Transform enemy = allEnemies [i];
-						float dist = enemy.position.x - hans.position.x;
-						if (dist * dist < maxHorizontalRange * maxHorizontalRange) {
-							tempEnemies.Add (enemy);
-						}
-						yield return null;
-					} else {
-						allEnemies.Remove(allEnemies[i]);
-						tempEnemies.Remove (allEnemies [i]);
+					if (Mathf.Abs (allEnemies [i].position.x - hans.position.x) <= maxHorizontalRange) {
+						
 					}
 				}
 				enemiesInRange = tempEnemies;
@@ -122,28 +116,36 @@ public class Prush : MonoBehaviour {
 
 	public void Platform(){
 		StopAllCoroutines ();
-		StartCoroutine ("PlatformCycle");
+		StartCoroutine(GetUnderHans ());
+		if (jumpsThusFar == 0) {
+			StartCoroutine (PlatformResetCheck());
+		}
 	}
-	public IEnumerator PlatformCycle(){
-		Vector2 destination = new Vector2 (hans.position.x, hans.position.y - 3);
-		Vector2 currentPos = transform.position;
-		float timer = 0.0f;
-		while ((Vector2) transform.position != destination) {
-			timer += Time.deltaTime;
-			transform.position = Vector2.Lerp (currentPos, destination, timer / timeToPlatform);
-			yield return null;
-		}
-		prushPlatform.gameObject.SetActive (true);
 
-		while (!prushPlatform.hansHasJumpedOff) {
-			yield return null;
-		}
-		prushPlatform.gameObject.SetActive (false);
+
+	public IEnumerator GetUnderHans(){
+			Vector2 destination = new Vector2 (hans.position.x, hans.position.y - 3);
+			Vector2 currentPos = transform.position;
+			float timer = 0.0f;
+			while ((Vector2)transform.position != destination) {
+				timer += Time.deltaTime;
+				transform.position = Vector2.Lerp (currentPos, destination, timer / timeToPlatform);
+				yield return null;
+			}
+			prushPlatform.gameObject.SetActive (true);
+
+			while (!prushPlatform.hansHasJumpedOff) {
+				yield return null;
+			}
+			prushPlatform.gameObject.SetActive (false);
+	}
+	public IEnumerator PlatformResetCheck(){
 		while (!hansCNS.grounded) { 
 			yield return null;
 		}
 		MaintainHomeostasis ();
-		hansBrain.platformPrimed = true;
+		jumpsThusFar = 0;
 	}
+
 
 }
