@@ -50,8 +50,15 @@ public class Prush : MonoBehaviour {
 			List<Transform> tempEnemies = new List<Transform>();
 			if (allEnemies.Count != 0) {
 				for (int i = 0; i < allEnemies.Count; i++) {
+					while (allEnemies [i] == null || i >= allEnemies.Count) {
+						allEnemies = GameData.enemies;
+						if (i >= allEnemies.Count) {
+							i = allEnemies.Count;
+						}
+						yield return null;
+					}
 					if (Mathf.Abs (allEnemies [i].position.x - hans.position.x) <= maxHorizontalRange) {
-						
+						tempEnemies.Add(allEnemies[i]);
 					}
 				}
 				enemiesInRange = tempEnemies;
@@ -143,6 +150,7 @@ public class Prush : MonoBehaviour {
 		while (!hansCNS.grounded) { 
 			yield return null;
 		}
+		StopAllCoroutines ();
 		MaintainHomeostasis ();
 		jumpsThusFar = 0;
 	}
