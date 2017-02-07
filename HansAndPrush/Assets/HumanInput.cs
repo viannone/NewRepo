@@ -4,7 +4,6 @@ using System.Collections;
 public class HumanInput : Brain {
 	public static HumanInput humanInput;
 	CentralNervousSystem cns;
-	public bool platformPrimed = true;
 
 	public void Awake(){
 		humanInput = this;
@@ -20,12 +19,13 @@ public class HumanInput : Brain {
 			cns.SetxInput(Input.GetAxisRaw("Horizontal"));
 			cns.SetyInput(Input.GetAxisRaw ("Vertical"));
 			if (Input.GetAxisRaw ("Platform") > 0) {
-				if (!cns.grounded && platformPrimed) {
-					platformPrimed = false;
+				if (!cns.grounded && Prush.prush.jumpsThusFar < Prush.prush.maxPlatforms) {
+					Prush.prush.jumpsThusFar++;
 					Prush.prush.Platform ();
-				} else if (cns.grounded && !platformPrimed) {
+					yield return new WaitForSeconds (.3f);
+				} else if (cns.grounded && Prush.prush.jumpsThusFar != 0) {
 					Prush.prush.CancelPlatform ();
-					platformPrimed = true;
+					Prush.prush.jumpsThusFar = 0;
 				}
 			}
 		yield return null;
