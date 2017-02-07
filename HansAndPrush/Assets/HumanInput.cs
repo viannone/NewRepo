@@ -20,12 +20,10 @@ public class HumanInput : Brain {
 			cns.SetyInput(Input.GetAxisRaw ("Vertical"));
 			if (Input.GetAxisRaw ("Platform") > 0) {
 				if (!cns.grounded && Prush.prush.jumpsThusFar < Prush.prush.maxPlatforms) {
-					Prush.prush.jumpsThusFar++;
 					Prush.prush.Platform ();
 					yield return new WaitForSeconds (.3f);
 				} else if (cns.grounded && Prush.prush.jumpsThusFar != 0) {
 					Prush.prush.CancelPlatform ();
-					Prush.prush.jumpsThusFar = 0;
 				}
 			}
 		yield return null;
